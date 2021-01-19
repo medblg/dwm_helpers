@@ -34,7 +34,7 @@ BATT(){
 
 Dat(){
     dat=$(date "+%m/%d-%R") # data "+%d/%m/%y %R"
-    echo "$dat "
+    echo " $dat"
 }
 
 Lip(){
@@ -42,11 +42,17 @@ Lip(){
     echo "  $lip"
 }
 
+getVolum(){
+    #v=$(amixer sget Master | grep -oE '[[:digit:]]{2}%')
+    v1=$(amixer sget Master | grep -oE '[[:digit:]]{2}%.*\[[[:alpha:]]+\]' | sed -e 's/\[//g' -e 's/\]//g' | awk '{printf("%s/mic(%s)",$1,$3)}') #show level+mic(off/on)
+    echo " $v1"
+    }
+
 while true
 do
     #BATT=$(acpi -b | sed 's/.*[charging|unknown], \(0-9)*\)%.*/\1/gi')
      
-    xsetroot -name "$(Lip)|$(BATT)|$(Dat)"
+    xsetroot -name "$(Lip)|$(BATT)|$(getVolum)|$(Dat)"
     sleep 2m
 
 done &
