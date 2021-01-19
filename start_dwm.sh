@@ -44,7 +44,7 @@ Lip(){
 
 getVolum(){
     #v=$(amixer sget Master | grep -oE '[[:digit:]]{2}%')
-    v1=$(amixer sget Master | grep -oE '[[:digit:]]{2}%.*\[[[:alpha:]]+\]' | sed -e 's/\[//g' -e 's/\]//g' | awk '{printf("%s/mic(%s)",$1,$3)}') #show level+mic(off/on)
+    v1=$(amixer sget Master | grep -oE '[[:digit:]]+%.*\[[[:alpha:]]+\]' | sed -e 's/\[//g' -e 's/\]//g' | awk '{printf("%s/mic(%s)",$1,$3)}') #show level+mic(off/on)
     echo " $v1"
     }
 
