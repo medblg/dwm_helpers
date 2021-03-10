@@ -47,13 +47,19 @@ getVolum(){
     v1=$(amixer sget Master | grep -oE '[[:digit:]]+%.*\[[[:alpha:]]+\]' | sed -e 's/\[//g' -e 's/\]//g' | awk '{printf("%s (%s)",$1,$3)}') #show level+Mute(off/on)
     mic=$(amixer sget 'Capture' | egrep -o '\[[a-zA-Z]+]' -m 1)
     echo " $v1  mic $mic"
-    }
-
+}
+getBright(){
+    actualbr=$(cat /sys/class/backlight/intel_backlight/brightness) #actual_brightness
+    maxbr="4437" #$(cat /sys/class/backlight/intel_backlight/max_brightness) no need to calculate, we already knew the max value
+    #brightness=$(bc <<< "scale=2;($actualbr / $maxbr) * 100")
+    brightness=$(bc <<< "$actualbr * 100 / $maxbr") #$(( ... ))
+    echo " bright: $brightness%"
+}
 while true
 do
     #BATT=$(acpi -b | sed 's/.*[charging|unknown], \(0-9)*\)%.*/\1/gi')
      
-    xsetroot -name "$(Lip)|$(BATT)|$(getVolum)|$(Dat)"
+    xsetroot -name "$(Lip)|$(BATT)|$(getVolum)|$(getBright)|$(Dat)"
     sleep 2m
 
 done &
