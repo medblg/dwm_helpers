@@ -10,6 +10,10 @@ BATT(){
     #BATT=$(acpi -b | sed 's/.*[charging|unknown], \([0-9]*\)%.*/\1/gi')
     BATT=$(cat /sys/class/power_supply/BAT0/capacity)
     STATUS=$(cat /sys/class/power_supply/BAT0/status)
+    if [ $STATUS == "Unknown" ];
+        then
+            STATUS="Charging"
+    fi
     #STATUS=$(acpi -b | sed 's/.*: \([a-zA-Z]*\),.*/\1/gi')
 
     if [ $BATT -ge 80 ]; then
@@ -66,5 +70,6 @@ done &
 #pactl set-default-sink 0
 setxkbmap -layout us,fr,ar -option grp:ctrls_toggle
 synclient HorizTwoFingerScroll=1
+~/.fehbg &
 dwm
 #exec ~/.config/dwm/slstatus/slstatus &
