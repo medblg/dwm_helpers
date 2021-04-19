@@ -1,4 +1,4 @@
-#/ /bin/bash
+#! /bin/bash
 
 Name="$1" # patch name == branch name
 Path="$2" # path to the patch
