@@ -69,6 +69,7 @@ do
 done &
 #pactl set-default-sink 0
 setxkbmap -layout us,fr,ar -option grp:ctrls_toggle
+setxkbmap -option "ctrl:nocaps"
 synclient HorizTwoFingerScroll=1
 ~/.fehbg &
 dwm
