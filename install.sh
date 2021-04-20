@@ -8,8 +8,3 @@ git branch "$Name"
 git checkout "$Name"
 #git apply "$Path" && echo "applied ok !"
 patch < "$Path" 
-
-
-
-
-
