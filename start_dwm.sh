@@ -59,11 +59,16 @@ getBright(){
     brightness=$(bc <<< "$actualbr * 100 / $maxbr") #$(( ... ))
     echo " bright: $brightness%"
 }
+getUp(){
+    uptime=$(uptime | awk '{print $3}')
+    echo " Up: $uptime min"
+}
+
 while true
 do
     #BATT=$(acpi -b | sed 's/.*[charging|unknown], \(0-9)*\)%.*/\1/gi')
      
-    xsetroot -name "$(Lip)|$(BATT)|$(getVolum)|$(getBright)|$(Dat)"
+    xsetroot -name "$(Lip)|$(BATT)|$(getVolum)|$(getBright)|$(getUp)|$(Dat)"
     sleep 2m
 
 done &
