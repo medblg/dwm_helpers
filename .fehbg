@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --no-fehbg --bg-center '/home/s1m0x/Pictures/profile.jpg' 
