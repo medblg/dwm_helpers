@@ -43,7 +43,7 @@ Dat(){
 
 Lip(){
     lip=$(ip a | grep wlp3s0 | grep -oE '([[:digit:]].{3}){3}\/[[:digit:]]{2}')
-    echo "  $lip"
+    [[ ! -z "lip" ]] && echo "  $lip" || echo "No cnx"
 }
 
 getVolum(){
@@ -60,8 +60,9 @@ getBright(){
     echo " bright: $brightness%"
 }
 getUp(){
+#uptime | egrep -o '[0-9:]+:[0-9]+' | tail +2
     uptime=$(uptime | awk '{print $3}')
-    echo " Up: $uptime min"
+    echo " Up: $uptime "
 }
 
 while true
@@ -69,7 +70,8 @@ do
     #BATT=$(acpi -b | sed 's/.*[charging|unknown], \(0-9)*\)%.*/\1/gi')
      
     xsetroot -name "$(Lip)|$(BATT)|$(getVolum)|$(getBright)|$(getUp)|$(Dat)"
-    sleep 2m
+    #sleep 2m
+    sleep 15s
 
 done &
 #pactl set-default-sink 0
