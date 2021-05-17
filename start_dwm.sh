@@ -28,6 +28,10 @@ BATT(){
     elif [ $BATT -lt 10 ]; then
     echo "  $BATT% $STATUS"
     fi
+    if [ "$BATT" -le 5  && "$STATUS" != "Charging" ];then
+	notify-send -u critical "charge your battery immediately"
+
+    fi
 	
    # if([ $BATT -le 5 ] && [ $STATUS == 'Discharging' ] && [ $SWBATT -eq 0 ]); then
    #     zenity --warning --text 'Too Low Battery, $BATT%.'
@@ -42,7 +46,8 @@ Dat(){
 }
 
 Lip(){
-    lip=$(ip a | grep wlp3s0 | grep -oE '([[:digit:]].{3}){3}\/[[:digit:]]{2}')
+    #lip=$(ip a | grep wlp3s0 | grep -oE '([[:digit:]].{3}){3}\/[[:digit:]]{2}')
+    lip=$(ip a | awk  -F "(inet.*.brd)" '{print $2}' | sed '/^$/d' | awk '{print $1}')
     [[ ! -z "lip" ]] && echo "  $lip" || echo "No cnx"
 }
 
