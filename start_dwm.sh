@@ -47,7 +47,8 @@ Dat(){
 
 Lip(){
     #lip=$(ip a | grep wlp3s0 | grep -oE '([[:digit:]].{3}){3}\/[[:digit:]]{2}')
-    lip=$(ip a | awk  -F "(inet.*.brd)" '{print $2}' | sed '/^$/d' | awk '{print $1}')
+    #lip=$(ip a | awk  -F "(inet.*.brd)" '{print $2}' | sed '/^$/d' | awk '{print $1}')
+    lip=$(ip a | egrep 'inet 192' | awk '{print $2}')
     [[ ! -z "lip" ]] && echo "  $lip" || echo "No cnx"
 }
 
